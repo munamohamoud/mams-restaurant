@@ -72,6 +72,7 @@ class _SignInScreenState extends State<SignInScreen> {
   Row signUpOption() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
+
       children: [
         const Text("Don't have account?",
             style: TextStyle(color: Colors.white70)),
