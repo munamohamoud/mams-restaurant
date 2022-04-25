@@ -1,8 +1,12 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:restaurant/Settings.dart';
 import 'package:restaurant/main.dart';
 import 'package:restaurant/restaurant.dart';
 import 'package:intl/intl.dart';
+import 'package:url_launcher/url_launcher.dart';
+
 
 // ignore: camel_case_types
 class detailPage extends StatefulWidget {
@@ -21,11 +25,8 @@ class _detailPageState extends State<detailPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text("Finders",
-              style: TextStyle(
-                fontSize: 25,
-              )),
-          leading: IconButton(
+        title: const Text("Finders", style: TextStyle(fontSize: 25,),),
+         leading: IconButton(
             icon: const Icon(Icons.arrow_back, size: 25),
             tooltip: 'go back',
             onPressed: () {
@@ -33,19 +34,17 @@ class _detailPageState extends State<detailPage> {
                   builder: (context) => const MyHomePage(title: "Finders")));
             },
           ),
-          actions: [
-            IconButton(
-              icon: const Icon(Icons.menu, size: 40),
-              padding: const EdgeInsets.only(right: 7),
-              tooltip: 'profile',
-              onPressed: () {
-                // To show profile page of current user from firebase**/
-                //   Navigator.of(context).push(MaterialPageRoute(
-                //       builder: (context) => const showProfile(user: createChatUser().getcurrentuser(),)));
-              },
-            )
-          ],
-        ),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.menu, size: 40),
+            padding: const EdgeInsets.only(right: 7),
+            tooltip: 'settings',
+            onPressed: () {
+              Navigator.of(context).push(MaterialPageRoute(builder: (context) => const settings()));
+            },
+          )
+        ],
+      ),
         body: Center(
           child: _displayInfo(),
         )); // ... to here.
@@ -53,22 +52,22 @@ class _detailPageState extends State<detailPage> {
 
   Widget _displayInfo() {
     return Padding(
-        padding: const EdgeInsets.fromLTRB(50, 5.0, 50, 5.0),
+        padding: const EdgeInsets.fromLTRB(5, 5.0, 5, 10.0),
         child: Card(
           child: ListView(
             shrinkWrap: true,
             children: <Widget>[
               Container(
-          margin:EdgeInsets.all(8.0),
+          margin:const EdgeInsets.all(8.0),
           child: Card(
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(8.0))),
+            shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(8.0))),
             child: InkWell(
-              onTap: () => print("ciao"),
+              onTap: () => print("image"),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,  // add this
                 children: <Widget>[
                   ClipRRect(
-                    borderRadius: BorderRadius.only(
+                    borderRadius: const BorderRadius.only(
                       topLeft: Radius.circular(8.0),
                       topRight: Radius.circular(8.0),
                     ),
@@ -80,8 +79,8 @@ class _detailPageState extends State<detailPage> {
                     ),
                   ),
                   ListTile(
-                     title: Text(Res!.name),
-                    subtitle: Text(Res!.address),
+                     title: Text(Res!.name, style: const TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold)),
+                    subtitle: Text(Res!.address, style: const TextStyle(fontSize: 16.0, color: Colors.grey)),
                   ),
                 ],
               ),
@@ -91,11 +90,18 @@ class _detailPageState extends State<detailPage> {
               //const SizedBox(height: 50.0),
               
               const SizedBox(height: 30.0),
-              const Text("Contact Info: "),
-              Text(Res!.phone.toString()),
-              Text(Res!.email.toString()),
+              const Center(child:  Text("Contact Info: ",style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold))),
+              const SizedBox(height: 15.0),
+               Center(child: Text(Res!.phone.toString(),style: const TextStyle(fontSize: 15.0, color: Colors.blue))),
+              Center(child:Text(Res!.website.toString(),style: const TextStyle(fontSize: 15.0, color: Colors.blue),)),
+              Center(child:Text(Res!.email.toString(),style: const TextStyle(fontSize: 15.0, color: Colors.grey))),
+              const SizedBox(height: 30.0),
+              const Center(child:  Text("Description: ",style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold))),
+              const SizedBox(height: 15.0),
+               Padding(
+                padding: const EdgeInsets.fromLTRB(10, 0.0, 10, 0.0),child: Text(Res!.description.toString(),style: const TextStyle(fontSize: 15.0, color: Colors.grey))),
               const SizedBox(height: 50.0),
-              RatingBar.builder(
+              Center(child: RatingBar.builder(
                 initialRating: 4,
                 minRating: 0,
                 direction: Axis.horizontal,
@@ -109,7 +115,7 @@ class _detailPageState extends State<detailPage> {
                 onRatingUpdate: (rating) {
                   print(rating);
                 },
-              ),
+              )),
               const SizedBox(height: 50.0),
               TextButton(
                   onPressed: () {

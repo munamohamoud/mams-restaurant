@@ -107,7 +107,7 @@ class _fullList extends State<restList> {
               ),
             ),
             Text(
-              widget.miles.toString() + "mi",
+              widget.miles.toString() + " mi",
               style: const TextStyle(
                 fontSize: 12,
               ),

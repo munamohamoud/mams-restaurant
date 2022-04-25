@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:restaurant/Profile.dart';
+import 'package:restaurant/Settings.dart';
 import 'package:restaurant/main.dart';
 import 'package:restaurant/restList.dart';
 import 'package:restaurant/restaurant.dart';
@@ -23,37 +25,12 @@ class _searchResultsState extends State<searchResults> {
   }
 
   final List<Widget> _children = [
-    listHelper(),
-    // To show profile page from navigation bar**/
-    //This is current user's profile coming from firebase
-    //showProfile(user: createChatUser().getcurrentuser(),), 
+    const listHelper(),
+    const profile(), 
   ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-          title: const Text("Finders", style: TextStyle(fontSize: 25,)),
-          leading: IconButton(
-            icon: const Icon(Icons.arrow_back, size: 25),
-            tooltip: 'go back',
-            onPressed: () {
-              Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => const MyHomePage(title: "Finders")));
-            },
-          ),
-           actions: [
-          IconButton(
-            icon: const Icon(Icons.menu, size: 40),
-            padding: const EdgeInsets.only(right: 7),
-            tooltip: 'profile',
-            onPressed: () {
-              // To show profile page of current user from firebase**/
-              //   Navigator.of(context).push(MaterialPageRoute(
-              //       builder: (context) => const showProfile(user: createChatUser().getcurrentuser(),)));
-            },
-          )
-        ],
-        ),
       body: const listHelper(),
       bottomNavigationBar: BottomNavigationBar(
         selectedItemColor: Colors.blueAccent,
@@ -100,8 +77,10 @@ class _listHelperState extends State<listHelper> {
         dislikes: 9,
         shares: 5,
         miles: 2,
-        phone: "1234567890",
-        email: "abc@yahoo.com"),
+        phone: "123-456(7890)",
+        email: "abc@yahoo.com",
+        website: "https://www.dominos.com/",
+        description: "Our menu includes Pizzas, Sandwiches, Pastas, salads, desserts, breads, and drinks."),
     restaurant(
         name: "Chipotle",
         address: "456 XYZ street, atlanta, GA 30302",
@@ -110,8 +89,10 @@ class _listHelperState extends State<listHelper> {
         dislikes: 8,
         shares: 6,
         miles: 4,
-        phone: "7890123456",
-        email: "xyz@yahoo.com"),
+        phone: "789-012(3456)",
+        email: "xyz@yahoo.com",
+        website: "https://www.chipotle.com/",
+        description: "Our menu includes bowls, burritos, tacos, salads, and drinks."),
     restaurant(
         name: "Yogurt Land",
         address: "789 LMN street, atlanta, GA 30302",
@@ -120,8 +101,10 @@ class _listHelperState extends State<listHelper> {
         dislikes: 5,
         shares: 1,
         miles: 3,
-        phone: "4561237890",
-        email: "lmn@yahoo.com"),
+        phone: "456-123(7890)",
+        email: "lmn@yahoo.com",
+        website: "https://www.yogurt-land.com/",
+        description: "Our menu includes yogurts with different kinds of flavors."),
     restaurant(
         name: "Lahore grill",
         address: "101 GHI street, atlanta, GA 30302",
@@ -130,8 +113,10 @@ class _listHelperState extends State<listHelper> {
         dislikes: 2,
         shares: 3,
         miles: 5,
-        phone: "7890456123",
-        email: "ghi@yahoo.com"),
+        phone: "789-045(6123)",
+        email: "ghi@yahoo.com",
+        website: "https://lahoregrill.com/",
+        description: "We offer Pakistani and North Indian cuisine to all who would love to try Authentic Food. Our cuisine is vast and mouth-watering."),
     restaurant(
         name: "Halal guys",
         address: "224 ABC street, atlanta, GA 30302",
@@ -145,13 +130,36 @@ class _listHelperState extends State<listHelper> {
         dislikes: 2,
         shares: 10,
         miles: 10,
-        phone: "0987654321",
-        email: "cba224@yahoo.com"),
+        phone: "198-765(4321)",
+        email: "cba224@yahoo.com",
+        website: "https://thehalalguys.com/",
+        description: "Chicken, Gyros, and Falafel Platters. The Authentic American Halal Food. Since 1990."),
   ];
   
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+          title: const Text("Finders", style: TextStyle(fontSize: 25,)),
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back, size: 25),
+            tooltip: 'go back',
+            onPressed: () {
+              Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => const MyHomePage(title: "Finders")));
+            },
+          ),
+           actions: [
+          IconButton(
+            icon: const Icon(Icons.menu, size: 40),
+            padding: const EdgeInsets.only(right: 7),
+            tooltip: 'settings',
+            onPressed: () {
+              Navigator.of(context).push(MaterialPageRoute(builder: (context) => const settings()));
+            },
+          )
+        ],
+        ),
       body: 
       Container(
         decoration: const BoxDecoration(
