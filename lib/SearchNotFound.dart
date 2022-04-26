@@ -1,6 +1,8 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
-import 'package:restaurant/main.dart';
+import 'main.dart';
+import 'home_screen.dart';
+
 //if app is unable to search input in database
 class FunPage extends StatelessWidget {
   @override
@@ -54,30 +56,37 @@ class _ViewState extends State<View> with SingleTickerProviderStateMixin {
               appBar: AppBar(
                 title: const Text("Go back"),
                 leading: IconButton(
-            icon: const Icon(Icons.arrow_back, size: 25),
-            tooltip: 'go back',
-            onPressed: () {
-              Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => const MyHomePage(title: "Finders")));
-            },
-          ),
+                  icon: const Icon(Icons.arrow_back, size: 25),
+                  tooltip: 'go back',
+                  onPressed: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) =>
+                            const MyHomePage(title: "Finders")));
+                  },
+                ),
               ),
               body: Center(
-                child:  TextButton(
+                child: TextButton(
                   child: RichText(
-  text: const TextSpan(
-    children: <TextSpan>[
-      TextSpan(
-        text: 'Sorry, this search was not found\n',  style: TextStyle(fontSize: 40, color: Colors.grey, ),),
-      TextSpan(
-        text: '🥺', // emoji characters
-        style: TextStyle(
-          fontFamily: 'EmojiOne', fontSize: 40,
-        ),
-      ),
-    ],
-  ),
-),
+                    text: const TextSpan(
+                      children: <TextSpan>[
+                        TextSpan(
+                          text: 'Sorry, this search was not found\n',
+                          style: TextStyle(
+                            fontSize: 40,
+                            color: Colors.grey,
+                          ),
+                        ),
+                        TextSpan(
+                          text: '🥺', // emoji characters
+                          style: TextStyle(
+                            fontFamily: 'EmojiOne',
+                            fontSize: 40,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
                   onPressed: makeItems,
                 ),
               ),
@@ -105,7 +114,7 @@ class _ViewState extends State<View> with SingleTickerProviderStateMixin {
             width: item._size,
             height: item._size,
             decoration:
-                BoxDecoration(color: item._color, shape: BoxShape.circle ),
+                BoxDecoration(color: item._color, shape: BoxShape.circle),
           ),
         ),
       );

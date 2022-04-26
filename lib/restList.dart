@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:restaurant/detailPage.dart';
-import 'package:restaurant/restaurant.dart';
-import 'package:restaurant/main.dart';
+import 'detailPage.dart';
+import 'restaurant.dart';
+import 'main.dart';
 
 class restList extends StatefulWidget {
   String name;
@@ -34,10 +34,9 @@ class _fullList extends State<restList> {
   Widget build(BuildContext context) {
     return GestureDetector(
       // To tap on each individual restaurant from list**/
-      onTap:()
-      async {
+      onTap: () async {
         await Future.delayed(const Duration(seconds: 1));
-        Navigator.push(context, MaterialPageRoute(builder: (context){
+        Navigator.push(context, MaterialPageRoute(builder: (context) {
           return detailPage(Res: this.widget.res);
         }));
       },

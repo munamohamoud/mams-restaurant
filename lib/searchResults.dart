@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:restaurant/Profile.dart';
-import 'package:restaurant/Settings.dart';
-import 'package:restaurant/main.dart';
-import 'package:restaurant/restList.dart';
-import 'package:restaurant/restaurant.dart';
+import 'package:restaurantapp/signin_screen.dart';
+import 'Profile.dart';
+import 'Settings.dart';
+import 'main.dart';
+import 'restList.dart';
+import 'restaurant.dart';
 import 'dart:ui' as ui;
+import 'home_screen.dart';
+import 'package:dio/dio.dart';
 
 class searchResults extends StatefulWidget {
   const searchResults({
@@ -26,7 +29,7 @@ class _searchResultsState extends State<searchResults> {
 
   final List<Widget> _children = [
     const listHelper(),
-    const profile(), 
+    const profile(),
   ];
   @override
   Widget build(BuildContext context) {
@@ -80,7 +83,8 @@ class _listHelperState extends State<listHelper> {
         phone: "123-456(7890)",
         email: "abc@yahoo.com",
         website: "https://www.dominos.com/",
-        description: "Our menu includes Pizzas, Sandwiches, Pastas, salads, desserts, breads, and drinks."),
+        description:
+            "Our menu includes Pizzas, Sandwiches, Pastas, salads, desserts, breads, and drinks."),
     restaurant(
         name: "Chipotle",
         address: "456 XYZ street, atlanta, GA 30302",
@@ -92,7 +96,8 @@ class _listHelperState extends State<listHelper> {
         phone: "789-012(3456)",
         email: "xyz@yahoo.com",
         website: "https://www.chipotle.com/",
-        description: "Our menu includes bowls, burritos, tacos, salads, and drinks."),
+        description:
+            "Our menu includes bowls, burritos, tacos, salads, and drinks."),
     restaurant(
         name: "Yogurt Land",
         address: "789 LMN street, atlanta, GA 30302",
@@ -104,7 +109,8 @@ class _listHelperState extends State<listHelper> {
         phone: "456-123(7890)",
         email: "lmn@yahoo.com",
         website: "https://www.yogurt-land.com/",
-        description: "Our menu includes yogurts with different kinds of flavors."),
+        description:
+            "Our menu includes yogurts with different kinds of flavors."),
     restaurant(
         name: "Lahore grill",
         address: "101 GHI street, atlanta, GA 30302",
@@ -116,16 +122,15 @@ class _listHelperState extends State<listHelper> {
         phone: "789-045(6123)",
         email: "ghi@yahoo.com",
         website: "https://lahoregrill.com/",
-        description: "We offer Pakistani and North Indian cuisine to all who would love to try Authentic Food. Our cuisine is vast and mouth-watering."),
+        description:
+            "We offer Pakistani and North Indian cuisine to all who would love to try Authentic Food. Our cuisine is vast and mouth-watering."),
     restaurant(
         name: "Halal guys",
         address: "224 ABC street, atlanta, GA 30302",
         image: Image.asset("assets/images/halal_guys.png",
-                       // width: 300,
-                        height: 150,
-                        fit:BoxFit.fill
-
-                    ),
+            // width: 300,
+            height: 150,
+            fit: BoxFit.fill),
         likes: 50,
         dislikes: 2,
         shares: 10,
@@ -133,35 +138,39 @@ class _listHelperState extends State<listHelper> {
         phone: "198-765(4321)",
         email: "cba224@yahoo.com",
         website: "https://thehalalguys.com/",
-        description: "Chicken, Gyros, and Falafel Platters. The Authentic American Halal Food. Since 1990."),
+        description:
+            "Chicken, Gyros, and Falafel Platters. The Authentic American Halal Food. Since 1990."),
   ];
-  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          title: const Text("Finders", style: TextStyle(fontSize: 25,)),
-          leading: IconButton(
-            icon: const Icon(Icons.arrow_back, size: 25),
-            tooltip: 'go back',
-            onPressed: () {
-              Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => const MyHomePage(title: "Finders")));
-            },
-          ),
-           actions: [
+        title: const Text("Finders",
+            style: TextStyle(
+              fontSize: 25,
+            )),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, size: 25),
+          tooltip: 'go back',
+          onPressed: () {
+            Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => const MyHomePage(title: "Finders")));
+          },
+        ),
+        actions: [
           IconButton(
             icon: const Icon(Icons.menu, size: 40),
             padding: const EdgeInsets.only(right: 7),
             tooltip: 'settings',
             onPressed: () {
-              Navigator.of(context).push(MaterialPageRoute(builder: (context) => const settings()));
+              Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => const settings()));
             },
           )
         ],
-        ),
-      body: 
-      Container(
+      ),
+      body: Container(
         decoration: const BoxDecoration(
           image: DecorationImage(
             image: AssetImage("assets/images/food_white.jpg"),
@@ -169,66 +178,66 @@ class _listHelperState extends State<listHelper> {
           ),
         ),
         child: SingleChildScrollView(
-        physics: const BouncingScrollPhysics(),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            SafeArea(
-              child: Padding(
-                padding: const EdgeInsets.only(left: 16, right: 16, top: 10),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: const <Widget>[
-                    Text(
-                      "Search Results",
-                      style:
-                          TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 16, left: 16, right: 16),
-              child: TextField(
-                decoration: InputDecoration(
-                  hintText: "Search...",
-                  hintStyle: TextStyle(color: Colors.grey.shade600),
-                  prefixIcon: Icon(
-                    Icons.search,
-                    color: Colors.grey.shade600,
-                    size: 20,
+          physics: const BouncingScrollPhysics(),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              SafeArea(
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 16, right: 16, top: 10),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: const <Widget>[
+                      Text(
+                        "Search Results",
+                        style: TextStyle(
+                            fontSize: 32, fontWeight: FontWeight.bold),
+                      ),
+                    ],
                   ),
-                  filled: true,
-                  fillColor: Colors.grey.shade100,
-                  contentPadding: const EdgeInsets.all(8),
-                  enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20),
-                      borderSide: BorderSide(color: Colors.grey.shade100)),
                 ),
               ),
-            ),
-            ListView.builder(
-              itemCount: Restaurants.length,
-              shrinkWrap: true,
-              padding: const EdgeInsets.only(top: 20),
-              physics: const NeverScrollableScrollPhysics(),
-              itemBuilder: (context, index) {
-                return Card( child: restList(
-                  name: Restaurants[index].name,
-                  address: Restaurants[index].address,
-                  image: Restaurants[index].image,
-                  likes: Restaurants[index].likes,
-                  dislikes: Restaurants[index].dislikes,
-                  shares: Restaurants[index].shares,
-                  miles: Restaurants[index].miles,
-                  res: Restaurants[index]
-                ));
-              },
-            ),
-          ],
+              Padding(
+                padding: const EdgeInsets.only(top: 16, left: 16, right: 16),
+                child: TextField(
+                  decoration: InputDecoration(
+                    hintText: "Search...",
+                    hintStyle: TextStyle(color: Colors.grey.shade600),
+                    prefixIcon: Icon(
+                      Icons.search,
+                      color: Colors.grey.shade600,
+                      size: 20,
+                    ),
+                    filled: true,
+                    fillColor: Colors.grey.shade100,
+                    contentPadding: const EdgeInsets.all(8),
+                    enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20),
+                        borderSide: BorderSide(color: Colors.grey.shade100)),
+                  ),
+                ),
+              ),
+              ListView.builder(
+                itemCount: Restaurants.length,
+                shrinkWrap: true,
+                padding: const EdgeInsets.only(top: 20),
+                physics: const NeverScrollableScrollPhysics(),
+                itemBuilder: (context, index) {
+                  return Card(
+                      child: restList(
+                          name: Restaurants[index].name,
+                          address: Restaurants[index].address,
+                          image: Restaurants[index].image,
+                          likes: Restaurants[index].likes,
+                          dislikes: Restaurants[index].dislikes,
+                          shares: Restaurants[index].shares,
+                          miles: Restaurants[index].miles,
+                          res: Restaurants[index]));
+                },
+              ),
+            ],
+          ),
         ),
-      ),
       ),
     );
   }

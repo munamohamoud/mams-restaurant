@@ -36,6 +36,12 @@ dependencies:
   cupertino_icons: ^1.0.2
   firebase_core: ^1.15.0
   firebase_auth: ^3.3.15
+  gestures: ^1.0.0
+  url_launcher: ^6.1.0
+  flutter_rating_bar: ^4.0.0
+  emoji_alert: ^1.1.0
+  carousel_slider: ^4.1.1
+  dio: ^4.0.6
 
 dev_dependencies:
   flutter_test:

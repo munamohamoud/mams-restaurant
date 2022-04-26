@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:restaurant/main.dart';
+import 'home_screen.dart';
 
 class AppInfo extends StatefulWidget {
   const AppInfo({Key? key}) : super(key: key);
@@ -13,7 +13,12 @@ class _AboutUs extends State<AppInfo> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("About Us", style: TextStyle(fontSize: 20,),),
+        title: const Text(
+          "About Us",
+          style: TextStyle(
+            fontSize: 20,
+          ),
+        ),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, size: 25),
           tooltip: 'go back',
